@@ -1,59 +1,48 @@
-import { Building2, ArrowUpRight, Plus } from "lucide-react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
+import { ArrowUpRight, Star, ThumbsUp } from "lucide-react"
 
-const recipients = [
-  { name: "Алексей Петров", info: "alexey@finpotok.ru", code: "P-52112", image: "/professional-man-portrait.png" },
-  { name: "Мария Иванова", info: "+7 (495) 123-45-67", code: "P-52132", image: "/professional-woman-portrait.png" },
-  { name: "Елена Смирнова", info: "elena@finpotok.ru", code: "P-52184", initials: "ЕС", color: "bg-teal-600" },
-  { name: "Дмитрий Козлов", info: "+7 (812) 987-65-43", code: "P-52114", initials: "ДК", color: "bg-amber-600" },
+const reviews = [
+  { author: "Иван К.", rating: 5, text: "Отличное место, рекомендую!", likes: 12 },
+  { author: "Мария С.", rating: 5, text: "Лучший сервис в городе!", likes: 8 },
+  { author: "Андрей П.", rating: 5, text: "Очень доволен качеством.", likes: 15 },
+  { author: "Ольга М.", rating: 5, text: "Буду возвращаться снова!", likes: 6 },
 ]
 
 export function LinkAccountsCard() {
   return (
     <div className="rounded-2xl bg-[#141414] border border-[#262626] p-6 flex flex-col">
-      <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[#1f1f1f] border border-[#2a2a2a]">
-        <Building2 className="h-5 w-5 text-gray-400" />
+      <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-violet-500/10 border border-violet-500/20">
+        <Star className="h-5 w-5 text-violet-400" />
       </div>
 
-      <h3 className="mb-2 text-lg font-semibold text-white">Объедините все счета</h3>
-      <p className="mb-4 text-sm text-gray-400">Подключите банки, кошельки и карты, чтобы видеть все балансы в одном окне</p>
+      <h3 className="mb-2 text-lg font-semibold text-white">Ответы на отзывы</h3>
+      <p className="mb-4 text-sm text-gray-400">Персональный ответ на каждый отзыв повышает лояльность клиентов и кликабельность карточки</p>
 
-      <a href="#" className="mb-6 inline-flex items-center text-sm text-gray-400 hover:text-white transition-colors">
-        Подробнее <ArrowUpRight className="ml-1 h-4 w-4" />
+      <a href="#services" className="mb-6 inline-flex items-center text-sm text-violet-400 hover:text-violet-300 transition-colors">
+        8 000 ₽/мес <ArrowUpRight className="ml-1 h-4 w-4" />
       </a>
 
       <div className="mt-auto space-y-2 rounded-xl bg-[#1a1a1a] border border-[#262626] p-3">
-        {recipients.map((recipient, index) => (
+        {reviews.map((review, index) => (
           <div key={index} className="flex items-center justify-between rounded-lg bg-[#0f0f0f] px-3 py-2">
             <div className="flex items-center gap-3">
-              <Avatar className="h-9 w-9">
-                {recipient.image ? (
-                  <AvatarImage src={recipient.image || "/placeholder.svg"} alt={recipient.name} />
-                ) : null}
-                <AvatarFallback className={`${recipient.color || "bg-gray-600"} text-white text-xs`}>
-                  {recipient.initials ||
-                    recipient.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                </AvatarFallback>
-              </Avatar>
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-violet-500/20 text-xs font-bold text-violet-300">
+                {review.author.split(" ").map(n => n[0]).join("")}
+              </div>
               <div>
-                <p className="text-sm font-medium text-white">{recipient.name}</p>
-                <p className="text-xs text-gray-500">{recipient.info}</p>
+                <p className="text-sm font-medium text-white">{review.author}</p>
+                <div className="flex gap-0.5">
+                  {Array.from({ length: review.rating }).map((_, i) => (
+                    <Star key={i} className="h-3 w-3 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
               </div>
             </div>
-            <span className="text-xs text-gray-500">{recipient.code}</span>
+            <div className="flex items-center gap-1 text-xs text-gray-500">
+              <ThumbsUp className="h-3 w-3" />
+              <span>{review.likes}</span>
+            </div>
           </div>
         ))}
-
-        <Button
-          variant="ghost"
-          className="w-full justify-center text-gray-500 hover:text-white hover:bg-[#1f1f1f] mt-2"
-        >
-          <Plus className="mr-2 h-4 w-4" /> Новый получатель
-        </Button>
       </div>
     </div>
   )
